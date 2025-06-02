@@ -1,39 +1,25 @@
-import { useState, useEffect } from "react";
-import "./index.css";
-import "./styles/fonts.css";
-import CounterMain from "./components/CouterMain";
-import { AccountForm } from "./components/AccountForm";
-import type { Account } from "./types/account"; 
+// App.tsx
+import { useEffect, useState } from "react";
+import { backButton, isTMA } from "@telegram-apps/sdk-react";
+import Welcome from "./components/Welcome";
 
 function App() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const maxAccounts = 5;
-  
+  const [isTmaEnv, setIsTmaEnv] = useState(false);
+
   useEffect(() => {
-    const saved = localStorage.getItem("accounts");
-    if (saved) setAccounts(JSON.parse(saved));
+    if (isTMA()) {
+      setIsTmaEnv(true);
+      backButton.show();
+      backButton.onClick(() => {});
+      const listener = () => alert("hello") 
+      return () => backButton.offClick(listener);
+    }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("accounts", JSON.stringify(accounts));
-  }, [accounts]);
-
-  const handleAddAccount = (newAccount: Account) => {
-    setAccounts([...accounts, newAccount]);
-  };
 
   return (
     <div>
-      <CounterMain
-        account={{ id: 1, name: "Основной", balance: 1000, currency: "USD" }}
-      />
-      <div>
-        <AccountForm
-          onAdd={handleAddAccount}
-          maxAccounts={maxAccounts}
-          currentCount={accounts.length}
-        />
-      </div>
+      <Welcome />
+      {isTmaEnv && <div>hello</div>}
     </div>
   );
 }
