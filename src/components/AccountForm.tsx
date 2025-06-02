@@ -27,14 +27,14 @@ export const AccountForm = ({ onAdd, maxAccounts, currentCount }: Props) => {
 
         onAdd({
             ...form,
-            id: Date.now(), // временный ID
+            id: Date.now(), 
         });
 
         setForm({ name: "", balance: 0, currency: "RUB" });
         setError("");
     };
 
-    // Важно: компонент должен возвращать JSX!
+
     return (
         <form onSubmit={handleSubmit}>
             <input

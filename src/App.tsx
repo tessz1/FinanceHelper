@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import "./styles/fonts.css";
-import CounterMain from "./components/CouterMain"; // исправлена опечатка в "CouterMain"
+import CounterMain from "./components/CouterMain";
 import { AccountForm } from "./components/AccountForm";
-import type { Account } from "./types/account"; // добавьте этот импорт
+import type { Account } from "./types/account"; 
 
 function App() {
   const [accounts, setAccounts] = useState<Account[]>([]);
