@@ -1,7 +1,8 @@
 // App.tsx
 import { useEffect, useState } from "react";
 import { backButton, isTMA } from "@telegram-apps/sdk-react";
-// import Welcome from "./components/Welcome";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Welcome from "./components/Welcome";
 import CreateCheck from "./components/CreateAccount";
 
 function App() {
@@ -18,11 +19,13 @@ function App() {
   }, []);
 
   return (
-    <div>
-      {/* <Welcome /> */}
-      <CreateCheck />
-      {isTmaEnv && <div>hello</div>}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/createCheck" element={<CreateCheck />} />
+        {/* // {isTmaEnv && <div>hello</div>} */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
