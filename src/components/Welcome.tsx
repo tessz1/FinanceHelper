@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 // import { useEffect, useState, useRef, type FC, type ReactNode } from "react";
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from "react-tooltip";
 // default tooltip
 // interface Props {
 //   children?: ReactNode;
@@ -76,11 +76,18 @@ function Welcome() {
             </span>{" "}
             - добавляйте доходы и расходы
           </div>
-          <div className="bg-white p-4 cursor-pointer rounded-xl shadow-sm hover:shadow-md transition-shadow border border-blue-100">
-            <span className="text-blue-500 font-semibold">📈 Анализ</span> -
-            наглядные графики и отчеты
-          </div>
-          <div className="bg-white p-4 cursor-pointer rounded-xl shadow-sm hover:shadow-md transition-shadow border border-blue-100">
+          <a
+            data-tooltip-id="Analysis"
+            data-tooltip-content="test"
+            data-tooltip-place="right"
+          >
+            <div className="bg-white p-4 cursor-pointer rounded-xl shadow-sm hover:shadow-md transition-shadow border border-blue-100">
+              <span className="text-blue-500 font-semibold">📈 Анализ</span> -
+              наглядные графики и отчеты
+            </div>
+          </a>
+          <Tooltip id="Analysis" />
+          <div className="bg-white p-4 cursor-pointer rounded-xl shadow-sm hover:shadow-md transition-shadow border border-blue-100 mt-4">
             <span className="text-blue-500 font-semibold">🎯 Бюджет</span> -
             контролируйте лимиты
           </div>
