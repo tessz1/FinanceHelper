@@ -1,0 +1,7 @@
+tunnel: my-tma-tunnel
+credentials-file: C:\Users\User\.cloudflared\e97f456c-ff7d-45af-9de9-defb307cb2ec.json
+url: http://localhost:5173
+
+originRequest:
+  connectTimeout: 30s
+  httpHostHeader: "financehelper.com"

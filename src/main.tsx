@@ -1,6 +1,7 @@
 import { init, isTMA } from "@telegram-apps/sdk-react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import "./index.css"
 
 async function initializeApp() {
   if (import.meta.env.DEV && !isTMA()) {
