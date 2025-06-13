@@ -2,18 +2,12 @@ import { useState } from "react";
 // @ts-ignore
 import PieChart from "./ChartPie";
 import { mockTransactions } from "./mockDatas";
-
+import { nameFilters } from "./ChartPie";
 function CreateCheck() {
   const [activeFilter, setActiveFilter] = useState("Все");
 
-  const filters = [
-    "Все",
-    "Доходы",
-    "Расходы",
-    "Еда",
-    "Траспорт",
-    "Развлечения",
-  ];
+  const filters = nameFilters()
+
 
   return (
     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex flex-col items-center font-mono">
@@ -27,7 +21,7 @@ function CreateCheck() {
         <PieChart data={mockTransactions} />
       </div>
       <div className="w-full max-w-[100vw] px-4">
-        <div className="flex gap-2 px-4 py-3 overflow-x-auto scrollbar-hide whitespace-nowrap touch-pan-x">
+        <div className="flex gap-2 py-6 overflow-x-auto scrollbar-hide whitespace-nowrap touch-pan-x">
           {filters.map((filter) => (
             <button
               key={filter}
