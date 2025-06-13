@@ -4,7 +4,7 @@ import { backButton, isTMA } from "@telegram-apps/sdk-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Welcome from "./components/Welcome";
 import CreateCheck from "./components/CreateAccount";
-
+import { FilterProvider } from "./components/context/filtex";
 function App() {
   const [isTmaEnv, setIsTmaEnv] = useState(false);
 
@@ -19,13 +19,15 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/createCheck" element={<CreateCheck />} />
-        {/* // {isTmaEnv && <div>hello</div>} */}
-      </Routes>
-    </BrowserRouter>
+    <FilterProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/createCheck" element={<CreateCheck />} />
+          {/* // {isTmaEnv && <div>hello</div>} */}
+        </Routes>
+      </BrowserRouter>
+    </FilterProvider>
   );
 }
 
