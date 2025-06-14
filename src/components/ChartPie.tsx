@@ -1,5 +1,5 @@
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, elements } from "chart.js";
 import { useFilter } from "./context/filtex";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -25,6 +25,10 @@ export const LABEL_TRANSFORMATION: Record<string, string> = {
   Здоровье: "Медицинские расходы",
 };
 
+export const nameFilterValue = () => {
+  return Object.values(LABEL_TRANSFORMATION)
+}
+
 export const nameFilters = () => {
   return Object.keys(LABEL_TRANSFORMATION);
 };
@@ -43,51 +47,51 @@ const transformOriginal = (original: string | undefined): string => {
   return partical ? LABEL_TRANSFORMATION[partical] : original;
 };
 
-const COLOR_SCHEME = {
+export const COLOR_SCHEME = {
   Расход: {
-    background: "rgba(224, 0, 0, 0.9)",
-    border: "rgba(192, 0, 0, 0.9)",
+    background: "rgba(255, 145, 145, 0.8)",
+    border: "rgba(244, 114, 114, 0.9)",
     label: "Расход",
   },
   Доход: {
-    background: "rgba(76, 175, 80, 0.9)",
-    border: "rgba(64, 155, 70, 0.9)",
+    background: "rgba(102, 210, 150, 0.8)",
+    border: "rgba(81, 190, 130, 0.9)",
     label: "Доход",
   },
   Еда: {
-    background: "rgba(255, 152, 0, 0.9)",
-    border: "rgba(235, 132, 0, 0.9)",
+    background: "rgba(255, 199, 109, 0.8)",
+    border: "rgba(240, 170, 80, 0.9)",
     label: "Еда",
   },
   Транспорт: {
-    background: "rgba(33, 150, 243, 0.9)",
-    border: "rgba(23, 140, 233, 0.9)",
+    background: "rgba(139, 195, 245, 0.8)",
+    border: "rgba(100, 181, 246, 0.9)",
     label: "Транспорт",
   },
   Развлечения: {
-    background: "rgba(156, 39, 176, 0.9)",
-    border: "rgba(136, 19, 156, 0.9)",
+    background: "rgba(172, 148, 248, 0.8)",
+    border: "rgba(152, 128, 228, 0.9)",
     label: "Развлечения",
   },
   default: {
-    background: "rgba(158, 158, 158, 0.9)",
-    border: "rgba(138, 138, 138, 0.9)",
+    background: "rgba(189, 189, 189, 0.8)",
+    border: "rgba(158, 158, 158, 0.9)",
   },
   Зарплата: {
-    background: "rgba(0, 200, 83, 0.9)",
-    border: "rgba(0, 180, 63, 0.9)",
+    background: "rgba(102, 210, 150, 0.8)",
+    border: "rgba(81, 190, 130, 0.9)",
   },
   Фриланс: {
-    background: "rgba(100, 221, 23, 0.9)",
-    border: "rgba(80, 201, 3, 0.9)",
+    background: "rgba(165, 222, 140, 0.8)",
+    border: "rgba(140, 200, 110, 0.9)",
   },
   Жилье: {
-    background: "rgba(233, 30, 99, 0.9)",
-    border: "rgba(213, 10, 79, 0.9)",
+    background: "rgba(255, 170, 195, 0.8)",
+    border: "rgba(245, 140, 170, 0.9)",
   },
   Здоровье: {
-    background: "rgba(171, 71, 188, 0.9)",
-    border: "rgba(151, 51, 168, 0.9)",
+    background: "rgba(204, 172, 239, 0.8)",
+    border: "rgba(184, 152, 219, 0.9)",
   },
 };
 
@@ -111,7 +115,7 @@ const PieChart = ({ data }: PieChartType) => {
             COLOR_SCHEME[item.type as keyof typeof COLOR_SCHEME]?.background ||
             COLOR_SCHEME.default.background
         ),
-        borderWidth: 1,
+        borderWidth: 0,
       },
     ],
   };
@@ -120,19 +124,25 @@ const PieChart = ({ data }: PieChartType) => {
     radius: "100%",
     plugins: {
       legend: {
-        labels: {
-          //@ts-ignore
-          generateLabels: (chart) => {
-            const labels =
-              ChartJS.overrides.pie.plugins.legend.labels.generateLabels(chart);
-            return labels.map((label) => {
-              label.text = `${label.text} `;
-              return label;
-            });
-          },
-        },
-        position: "top",
+        display: false,
       },
+      elements: {
+        border: 0
+      }
+      // legend: {
+      //   labels: {
+      //     //@ts-ignore
+      //     generateLabels: (chart) => {
+      //       const labels =
+      //         ChartJS.overrides.pie.plugins.legend.labels.generateLabels(chart);
+      //       return labels.map((label) => {
+      //         label.text = `${label.text} `;
+      //         return label;
+      //       });
+      //     },
+      //   },
+      //   position: "top",
+      // },
     },
   };
   // @ts-ignore
