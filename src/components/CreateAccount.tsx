@@ -1,4 +1,4 @@
-import { useState, type JSX } from "react";
+import { useState } from "react";
 // @ts-ignore
 import PieChart from "./ChartPie";
 import { mockTransactions } from "./mockDatas";
@@ -14,32 +14,45 @@ import {
 } from "react-icons/fa6";
 import { FaHeartbeat, FaHome } from "react-icons/fa";
 import { AiTwotonePushpin } from "react-icons/ai";
-
+import { ColorCirlce } from "./ColorCircle";
 function CreateCheck() {
   const [activeFilter, setActiveFilter] = useState("Все");
   const filters: string[] = nameFilters();
   const ValueFilters: string[] = nameFilterValue();
-  const icons: JSX.Element[] = [
-    <FaMoneyBillTrendUp />,
-    <FaBowlFood />,
-    <FaCar />,
-    <FaFilm />,
-    <FaMoneyBillWave />,
-    <AiTwotonePushpin />,
-    <FaHome />,
-    <FaHeartbeat />,
+  const icons = [
+    <FaMoneyBillTrendUp key="income" />,
+    <FaBowlFood key="food" />,
+    <FaCar key="transport" />,
+    <FaFilm key="entertainment" />,
+    <FaMoneyBillWave key="freelance" />,
+    <AiTwotonePushpin key="other" />,
+    <FaHome key="housing" />,
+    <FaHeartbeat key="health" />,
   ];
 
-  const filterDefaultKeys = filters.map((filter, index) => ({
-    name: filter,
-    icons: icons[index],
-  }));
+  const valueCategory = mockTransactions.map((filter) => {
+    const transformationCurrency = `${filter.value} руб.`;
+    // const avgValue
+    return {
+      value: transformationCurrency,
+    };
+  });
 
+  // фильтрация для отображения кружков и имен категорий по ключу
+  const filterDefaultKeys = filters.map((filter, index) => {
+    const colorEntry =
+      COLOR_SCHEME[filter as keyof typeof COLOR_SCHEME] || COLOR_SCHEME.default;
+    return {
+      name: filter,
+      icons: icons[index],
+      theme: colorEntry.background,
+    };
+  });
+  // фильтрация для отображения имени по значению и массив иконок
   const filtersWithIcons = ValueFilters.map((filter, index) => ({
     name: filter,
     icon: icons[index],
   }));
-  console.log(filtersWithIcons);
 
   return (
     <div className="bg-gradient-to-br from-[#dbf1fc] to-[#daf0fb] min-h-screen flex flex-col items-center font-sans tracking-tight">
@@ -52,7 +65,7 @@ function CreateCheck() {
         </p>
       </div>
       <div className="w-full max-w-[100vw] px-4">
-        <div className="flex gap-2 py-6 overflow-x-auto scrollbar-hide whitespace-nowrap touch-pan-x">
+        <div className="flex gap-2 py-6 overflow-x-auto scrollbar-hide whitespace-nowrap no-scrollbar touch-pan-x">
           {filtersWithIcons.map((item) => (
             <button
               key={item.name}
@@ -69,7 +82,7 @@ function CreateCheck() {
             </button>
           ))}
         </div>
-        <div className="mt-1 w-full max-w-md px-4">
+        <div className="flex justify-center items-center mt-1 w-full px-6   ">
           <PieChart data={mockTransactions} />
         </div>
         {/* Кружки для отображения */}
@@ -78,11 +91,15 @@ function CreateCheck() {
             {filterDefaultKeys.map((item) => (
               <span
                 key={item.name}
-                className="flex flex-col px-4 py-1 font-sans "
+                className="flex flex-col px-6 py-1 font-sans"
               >
-                <div className="bg-white p-2 rounded">{item.name}</div>
+                <div className="bg-white p-4 mr-1  rounded max-w-4xl flex items-center gap-2 ">
+                  <ColorCirlce color={item.theme} size="lg" />
+                  {item.name}
+                </div>
               </span>
             ))}
+            <div></div>
           </div>
         </div>
       </div>

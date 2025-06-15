@@ -7,24 +7,23 @@ type FilterContextType = {
 };
 
 type FilterProviderProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
-const FilterContext = createContext<FilterContextType | undefined>(undefined)
+const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
+export const FilterProvider = ({ children }: FilterProviderProps) => {
+  const [activeFilter, setActiveFilter] = useState("Все");
 
-export const FilterProvider = ({children}: FilterProviderProps) => {
-    const [activeFilter, setActiveFilter] = useState("Все")
-
-    return (
-        <FilterContext.Provider value={{ activeFilter, setActiveFilter}}>
-        {children}
-        </FilterContext.Provider>
-    )
-}
+  return (
+    <FilterContext.Provider value={{ activeFilter, setActiveFilter }}>
+      {children}
+    </FilterContext.Provider>
+  );
+};
 
 export const useFilter = () => {
-    const context = useContext(FilterContext)
-    if(!context) throw new Error("useFilter")
-        return context
-}
+  const context = useContext(FilterContext);
+  if (!context) throw new Error("useFilter");
+  return context;
+};

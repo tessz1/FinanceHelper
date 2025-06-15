@@ -1,5 +1,5 @@
 import { Pie } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title, elements } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 import { useFilter } from "./context/filtex";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
@@ -26,8 +26,8 @@ export const LABEL_TRANSFORMATION: Record<string, string> = {
 };
 
 export const nameFilterValue = () => {
-  return Object.values(LABEL_TRANSFORMATION)
-}
+  return Object.values(LABEL_TRANSFORMATION);
+};
 
 export const nameFilters = () => {
   return Object.keys(LABEL_TRANSFORMATION);
@@ -97,6 +97,7 @@ export const COLOR_SCHEME = {
 
 const PieChart = ({ data }: PieChartType) => {
   const { activeFilter } = useFilter();
+
   const filterData = data.filter(
     (item) => activeFilter === "Все" || item.type === activeFilter
   );
@@ -121,14 +122,15 @@ const PieChart = ({ data }: PieChartType) => {
   };
   const options = {
     responsive: true,
-    radius: "100%",
+
+    radius: "80%",
     plugins: {
       legend: {
         display: false,
       },
       elements: {
-        border: 0
-      }
+        border: 0,
+      },
       // legend: {
       //   labels: {
       //     //@ts-ignore
