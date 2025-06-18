@@ -123,7 +123,7 @@ const PieChart = ({ data }: PieChartType) => {
   const options = {
     responsive: true,
 
-    radius: "80%",
+    radius: "100%",
     plugins: {
       legend: {
         display: false,

@@ -30,24 +30,27 @@ function CreateCheck() {
     <FaHeartbeat key="health" />,
   ];
 
-  const valueCategory = mockTransactions.map((filter) => {
-    const transformationCurrency = `${filter.value} руб.`;
-    // const avgValue
-    return {
-      value: transformationCurrency,
-    };
-  });
+  // const valueCategory = mockTransactions.map((filter) => {
+  //   const transformationCurrency = `${filter.value} руб.`;
+  //   // const avgValue
+  //   return {
+  //     value: transformationCurrency,
+  //   };
+  // });
 
+  // const mergeObject = Object.assign(mockTransactions, filters)
   // фильтрация для отображения кружков и имен категорий по ключу
   const filterDefaultKeys = filters.map((filter, index) => {
     const colorEntry =
-      COLOR_SCHEME[filter as keyof typeof COLOR_SCHEME] || COLOR_SCHEME.default;
+    COLOR_SCHEME[filter as keyof typeof COLOR_SCHEME] || COLOR_SCHEME.default;
     return {
       name: filter,
       icons: icons[index],
       theme: colorEntry.background,
+      
     };
   });
+  console.log(filterDefaultKeys)
   // фильтрация для отображения имени по значению и массив иконок
   const filtersWithIcons = ValueFilters.map((filter, index) => ({
     name: filter,
